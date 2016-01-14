@@ -3,11 +3,19 @@
 <head>
   <title>WebTeleMarketing</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<header>
+	<nav>
+		<%if logged_in?%>
+			<%=  link_to "Log Out",sessions_path, method: "delete"%>
+			<%else%>
+			<%=link_to "register", new_user_path %>
+		<% end%>
+	</nav>
+</header>
 <%= yield %>
 
 </body>
