@@ -1,0 +1,21 @@
+.users-profile {
+	width: 500px;
+	/*margin: auto;*/
+	text-align: left;
+	border: thin solid gray;
+
+}
+
+.users-profile span {
+	font-size: 30px;
+	color: #C5BCAD;
+}
+
+.calling-div {
+	width: 400px;
+	margin: auto;
+	border: thin gray solid;
+	padding: 1em;
+	background-color: white;
+	border-radius: 8px;
+}

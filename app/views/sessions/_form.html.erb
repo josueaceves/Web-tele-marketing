@@ -1,9 +1,7 @@
 <%= form_for :session, url: sessions_path do %>
 
-  <%= label_tag "Email" %>
-  <%= text_field_tag "user[email]" %>
+  <p class="form-input"><%= text_field_tag "user[email]", "", placeholder: "Email" %></p>
 
-  <%= label_tag "Password" %>
-  <%= text_field_tag "user[password]" %>
-  <%= submit_tag "Log in" %>
+  <p class="form-input"><%= password_field_tag  "user[password]",  "", placeholder: "Password" %></p>
+  <p class="form-button"><%= submit_tag "Log in" %></p>
 <%end%>

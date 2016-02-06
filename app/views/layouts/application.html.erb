@@ -9,14 +9,24 @@
 <body>
 <header>
 	<nav>
-		<%if logged_in?%>
-			<%=  link_to "Log Out",sessions_path, method: "delete"%>
-			<%else%>
-			<%=link_to "register", new_user_path %>
-		<% end%>
+		<div class="header-nav">
+			<%if logged_in?%>
+				<span>Welcome </span>
+				<span><%= @user.first_name %></span>
+				<span><%= @user.last_name %></span>
+				<%=  link_to "Log Out",sessions_path, method: "delete"%>
+				<%=  link_to "About", root_path, method: "get"%>
+				<%else%>
+				<%=link_to "Register", new_user_path %>
+				<%=  link_to "About", root_path, method: "get"%>
+				<%=  link_to "Contact us", root_path, method: "get"%>
+			<% end%>
+		</div>
 	</nav>
 </header>
-<%= yield %>
+<div class="layout-div">
+	<%= yield %>
+</div>
 
 </body>
 </html>

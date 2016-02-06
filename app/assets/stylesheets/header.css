@@ -1,0 +1,36 @@
+body {
+	background-image: url("layout-office.png");
+}
+header {
+
+	width: 80%;
+	height: 100px;
+	background-color: rgba(0,0,0,0.3);
+	margin:auto;
+	border-radius: 5px;
+}
+.header-nav {
+	text-align: center;
+	margin-top: 3em;
+	float: right;
+}
+
+.header-nav a {
+	font-size: 20px;
+	padding: .5em;
+	color: white;
+	font-family: Georgia;
+}
+
+.index-logo {
+	text-align: center;
+	border: solid red;
+	/*font-size: 30px;*/
+	color: #AB9F8F;
+	width: 400px;
+}
+.header-nav span {
+	font-size: 30px;
+	color: #C5BCAD;
+/*float: left;*/
+}

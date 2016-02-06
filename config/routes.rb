@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
+  post '/calls' => 'twilio#call'
   
   root 'landings#index'
 
-  resources :users
-
-
+  resources :users do
+    resources :contacts
+  end
 
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'
   delete '/sessions' => 'sessions#delete'
+
+
+
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

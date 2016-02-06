@@ -1,0 +1,45 @@
+.layout-div {
+	width: 80%;
+	height: 800px;
+	background-color: rgba(0,0,0,0.3);
+	margin: auto;
+	margin-top:2em;
+	border-radius: 5px;
+	padding-top: 3em;
+
+}
+
+.index-login {
+	border: solid thin white;
+	border-radius: 15px;
+	margin: auto;
+	width: 350px;
+	background-color: #686358;
+	/*background-color: #A99D91;*/
+
+}
+.index-login form {
+	width: 200px;
+	margin: auto;
+	text-align: center;
+
+
+}
+
+ .index-login .form-input input { 
+ 	border-radius: 4px;
+	width: 130px;
+	height: 20px;
+}
+
+.form-button {
+	margin-left: 2em;
+
+}
+.index-login h2 {
+	margin: auto;
+	width: 80px;
+	font-family: cursive;
+	color: white;
+	/*color: #AB9F8F;*/
+}
