@@ -11,6 +11,9 @@
 	<nav>
 		<div class="header-nav">
 			<%if logged_in?%>
+				<span>Welcome </span>
+				<span><%= @user.first_name %></span>
+				<span><%= @user.last_name %></span>
 				<%=  link_to "Log Out",sessions_path, method: "delete"%>
 				<%=  link_to "About", root_path, method: "get"%>
 				<%else%>

@@ -1,25 +1,20 @@
 Rails.application.routes.draw do
+  post '/calls' => 'twilio#call'
   
   root 'landings#index'
 
-  resources :users
+  resources :users do
+    resources :contacts
+  end
 
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'
   delete '/sessions' => 'sessions#delete'
 
-  
 
-  
 
-  # webhook for your Twilio number
-  # match 'ivr/welcome' => 'twilio#ivr_welcome', via: [:get, :post], as: 'welcome'
 
-  # # callback for user entry
-  # match 'ivr/selection' => 'twilio#menu_selection', via: [:get, :post], as: 'menu'
 
-  # # callback for planet entry
-  # match 'ivr/planets' => 'twilio#planet_selection', via: [:get, :post], as: 'planets'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
