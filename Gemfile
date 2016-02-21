@@ -29,7 +29,7 @@ gem 'twilio-ruby'
 gem "phony_rails"
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'rails_12factor', group: :production
 gem 'bootstrap-sass', '~> 3.3.6'
 
 # Use Capistrano for deployment
