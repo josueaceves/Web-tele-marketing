@@ -8,23 +8,36 @@
 </head>
 <body>
 <header>
-	<nav>
-		<div class="header-nav">
-			<%if logged_in?%>
-				<span>Welcome </span>
-				<span><%= @user.first_name %></span>
-				<span><%= @user.last_name %></span>
-				<%=  link_to "Log Out",sessions_path, method: "delete"%>
-				<%=  link_to "About", root_path, method: "get"%>
-				<%else%>
-				<%=link_to "Register", new_user_path %>
-				<%=  link_to "About", root_path, method: "get"%>
-				<%=  link_to "Contact us", root_path, method: "get"%>
-			<% end%>
+	<div class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Web Marketer</a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
+					<li class="active"> <a href="/">Home</a></li>
+					<%if current_user%>
+						<li><%=  link_to "Log out",sessions_path, method: "delete"%></li>
+						<li><%=  link_to "About", root_path, method: "get"%></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%=current_user.first_name%> <span class='caret'></spam></a>
+							<ul class="dropdown-menu">
+								<li> <a href="/">Phone Contacts</a></li>
+								<li> <a href="/">My Number</a></li>
+								<li> <a href="/">My clients</a></li>
+							</ul>
+						</li>
+						<%else%>
+						<li><%=link_to "Register", new_user_path %></li>
+						<li><%=  link_to "About", root_path, method: "get"%></li>
+						<li><%=  link_to "Contact us", root_path, method: "get"%></li>
+					<% end%>
+				</ul>
+			</div>
 		</div>
-	</nav>
+	</div>
 </header>
-<div class="layout-div">
+<div class="container">
 	<%= yield %>
 </div>
 

@@ -2,11 +2,13 @@
 <div class="index-login">
 	<h2>Register</h2>
 	<%= form_for(@user) do |f| %>
+
 		<p class="form-input"><%= f.text_field :first_name, placeholder: "First Name" %></p>
 
 		<p class="form-input"><%= f.text_field :last_name, placeholder: "Last Name" %></p>
 
 		<p class="form-input"><%= f.text_field :email, placeholder: "Email" %></p>
+		<p class="form-input"><%= f.text_field :number, placeholder: "Phone Number" %></p>
 
 		<p class="form-input"><%= f.password_field :password, placeholder: "Password" %></p>
 

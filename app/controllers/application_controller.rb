@@ -4,12 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
-  helper_method :logged_in?, :current_user
-  def logged_in?
-  	session[:user_id] != nil
-  end
+  helper_method :current_user
+  
 
-  def current_user(id)
-  	User.find_by(id: id)
+   def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 end

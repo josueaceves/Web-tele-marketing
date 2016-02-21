@@ -1,7 +1,6 @@
 class LandingsController < ApplicationController
 	before_filter :logged_in?, only: [:index]
 	def index
-		render 'index'
 	end
 
 	private

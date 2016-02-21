@@ -1,15 +1,23 @@
+<div class=" container calling-div">
+ <div class="form-group">
+  <p class="help-block">
+    Please enter the numbers you wish to call:
+  </p>
+</div>
 
-<div class="calling-div">
-   <div class="form-group">
-     <p class="help-block">
-       Please enter the numbers you wish to call:
-     </p>
-   </div>
-	<form id="contactform" role="form" action="/calls" method="POST">
-   <div class="form-group">
-     <input class="form-control" type="text" name="name" id="contact-name" placeholder="Contact Name">
-     <input class="form-control" type="text" name="phone" id="phoneNumber" placeholder="Ex: (805) 555-7889">
-   </div>
-   <button type="submit" class="btn btn-default">Send Calls</button>
+	<form class="call-form" role="form" action="/calls" method="POST">
+    <div class="form-group col-sm-4">
+      <input class="form-control col-sm-2" type="text" name="name" id="contact-name" placeholder="Contact Name">
+      <input class="form-control col-sm-2" type="text" name="phone" id="phoneNumber" placeholder="Ex: (805) 555-7889">
+      <button type="submit" class="btn btn-default">Send Calls</button>
+    </div>
  </form>
+
+<!--  <form id="contactform" role="form" action="/verify_number" method="POST">
+   <div class="form-group">
+     <input class="form-control" type="text" name="phone_to_verify" id="phoneNumber" placeholder="Ex: (805) 555-7889">
+   </div>
+   <button type="submit" class="btn btn-default">verify number</button>
+ </form> -->
+ 
 </div>
