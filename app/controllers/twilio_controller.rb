@@ -22,7 +22,11 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Si esta interesado, porfavor marcar el numero 1. De otra manera oprima el 2.', :voice => 'alice', language: "es-MX"
+      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point. thank you for your time.', :voice => 'alice'
+    end
+      r.Gather numDigits: '1', action: menu_path do |g|
+        g.Play "http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop: 3
+      end
     end
     render text: response.text
   end
