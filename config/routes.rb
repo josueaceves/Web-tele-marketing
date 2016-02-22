@@ -1,21 +1,30 @@
 Rails.application.routes.draw do
-  post '/calls' => 'twilio#call'
-  
+
+  #root_path  route
   root 'landings#index'
 
   resources :users do
     resources :contacts
   end
 
+  # sessions routes
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'
   delete '/sessions' => 'sessions#delete'
 
+  # Twilio routes
+  post '/calls' => 'twilio#call'
+
+  post '/verify_number' => 'twilio#verify_number'
 
 
 
+  post 'connect' => 'twilio#connect'
 
+  match 'ivr/welcome' => 'twilio#ivr_welcome', via: [:get, :post], as: 'welcome'
 
+  # callback for user entry
+  match 'ivr/selection' => 'twilio#menu_selection', via: [:get, :post], as: 'menu'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

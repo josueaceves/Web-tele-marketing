@@ -1,7 +1,10 @@
-<%= form_for :session, url: sessions_path do %>
 
+
+<%= form_for(:session, :url => sessions_path) do %>
   <p class="form-input"><%= text_field_tag "user[email]", "", placeholder: "Email" %></p>
 
   <p class="form-input"><%= password_field_tag  "user[password]",  "", placeholder: "Password" %></p>
+
   <p class="form-button"><%= submit_tag "Log in" %></p>
+
 <%end%>
