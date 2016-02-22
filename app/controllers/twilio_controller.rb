@@ -22,7 +22,7 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Si esta interesado, porfavor marcar el numero 1. De otra manera oprima el 2.', :voice => 'alice', language: "es-MX"
+      r.Say 'Si esta interesado, porfavor marcar el numero 1. De otra manera oprima el 2.',language: 'es-MX'
     end
     render text: response.text
   end
