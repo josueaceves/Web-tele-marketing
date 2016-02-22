@@ -20,21 +20,22 @@ class TwilioController < ApplicationController
 	  render :nothing => true, :status => 200, :content_type => 'text/html'
 	end
 
-   def connect
+  def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', :voice => 'alice'
+      r.Say 'Si esta interesado, porfavor marcar el numero 1. De otra manera oprima el 2.', :voice => 'alice', language: "es-MX"
     end
     render text: response.text
   end
 
-  # def ivr_welcome
-  #   response = Twilio::TwiML::Response.new do |r|
-  #     r.Gather numDigits: '1', action: menu_path do |g|
-  #       g.Play "http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop: 3
-  #     end
-  #   end
-  #    render text: response.text
-  # end
+  def ivr_welcome
+    response = Twilio::TwiML::Response.new do |r|
+      r.Gather numDigits: '1', action: menu_path do |g|
+        g.Play "http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop: 3
+      end
+    end
+     render text: response.text
+  end
+
 
   def menu_selection
     user_selection = params[:Digits]
@@ -58,7 +59,7 @@ class TwilioController < ApplicationController
     # Should we hangup or go back to the main menu?
     response = Twilio::TwiML::Response.new do |r|
       r.Say phrase, voice: 'alice', language: 'en-GB'
-      if exit 
+      if exit
         r.Say "Thank you for calling the ET Phone Home Service - the
         adventurous alien's first choice in intergalactic travel."
         r.Hangup
