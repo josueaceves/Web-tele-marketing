@@ -25,18 +25,9 @@ class TwilioController < ApplicationController
         g.Say 'Enter one or two', :voice => 'alice', loop: 2
       end
     end
-    render text: response.text
+    # render text: response.text
+    render :xml => twiml_response.to_xml
   end
-
-  def ivr_welcome
-    response = Twilio::TwiML::Response.new do |r|
-      r.Gather numDigits: '1', action: menu_path do |g|
-        g.Play "http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop: 3
-      end
-    end
-     render text: response.text
-  end
-
 
   def menu_selection
     user_selection = params[:Digits]
