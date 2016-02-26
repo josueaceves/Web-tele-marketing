@@ -14,51 +14,84 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
- .pull-right {
-   float: right !important;
- }
- .btn-primary.btn-lg {
-     color: #fff;
-     background-color: #D13F31;
-     border-color: #D13F31;
 
- }
+ .panel-info > .panel-heading {
+    color: white !important ;
+    background-color: #222 !important;
+    border-color: white !important;
+}
 
- .btn-primary.btn-lg:hover  {
-     color: #fff;
-     background-color: #222222;
-     border-color: #222222;
- }
+  .contact-form input {
+    margin-bottom: .5em;
+  }
+  .contact-new-input-name {
+    margin-right: 1em;
+  }
 
- .number-input {
+  .contact-form {
+    margin-left: 2em;
+  }
+
+  .contact-new-button {
+    margin-left: 6em;
+    margin-top: 1em;
+  }
+
+  .display-inline {
+    display: inline-block;
+  }
+  .pull-center {
+    margin:auto !important;
+  }
+  .pull-right {
+    float: right !important;
+  }
+
+  .inline {
+    display:inline;
+  }
+  .btn-primary.btn-lg {
+   color: #fff;
+   background-color: #D13F31;
+   border-color: #D13F31;
+
+  }
+
+  .btn-primary.btn-lg:hover  {
+   color: #fff;
+   background-color: #222222;
+   border-color: #222222;
+  }
+
+  .number-input {
    margin-left: 1em;
- }
-.panel-title {
-  font-size: 30px;
-}
+  }
+  .panel-title {
+    font-size: 30px;
+  }
 
-body {
-  background: url('body-img.png');
-}
+  body {
+    background: url('body-img.png');
+  }
 
-.login-div {
-  background: rgba(245, 245, 245, 0.4);
-  margin-left: 20em;
-  margin-top: 2em;
-  margin-bottom: 10em;
-}
+  .login-div {
+    background: rgba(245, 245, 245, 0.4);
+    margin-left: 20em;
+    margin-top: 2em;
+    margin-bottom: 10em;
+  }
 
 
-.panel-title {
+  .panel-title {
   text-align: center;
-}
+  }
 
-.btn-info {
-  color: #fff;
-  background-color: #222222;
-  border-color: #222222;
-}
+  .btn-info {
+    color: #fff;
+    background-color: #222222;
+    border-color: #222222;
+  }
 
-.landing-body {
-  height: auto;
-}
+  .landing-body {
+    height: auto;
+  }

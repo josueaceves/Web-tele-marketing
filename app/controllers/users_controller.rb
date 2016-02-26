@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	 
+
 	def new
 		@user = User.new
 	end
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.new(user_params)
+		@user = User.new(user_params.merge(user_number))
 		if @user.save
 			redirect_to '/'
 		else
@@ -18,9 +18,19 @@ class UsersController < ApplicationController
 		end
 	end
 
-	private 
+
+
+	private
 	def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :number)
+    params.require(:user).permit(:first_name, :last_name, :email, :password)
   end
+
+	def user_phone
+		params.require(:phone).permit(:area, :pre, :body)
+	end
+
+	def user_number
+		{number: "#{user_phone[:area]}#{user_phone[:pre]}#{user_phone[:body]}"}
+	end
 
 end
