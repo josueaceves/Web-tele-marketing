@@ -1,10 +1,25 @@
-
-
-<%= form_for(:session, :url => sessions_path) do %>
-  <p class="form-input"><%= text_field_tag "user[email]", "", placeholder: "Email" %></p>
-
-  <p class="form-input"><%= password_field_tag  "user[password]",  "", placeholder: "Password" %></p>
-
-  <p class="form-button"><%= submit_tag "Log in" %></p>
-
-<%end%>
+<div class="row landig-body">
+    <div class="col-sm-6 login-div">
+      <div class="panel-body">
+				<div class="panel-heading clearfix">
+					<h3 class="panel-title">Inicio</h3>
+				<%= form_for(:session, :url => sessions_path, :html =>{ :role => "form"}) do %>
+					<div class="form-group">
+					  <%= label_tag "Correo Electronico", nil, :class=>"fsr-only" %>
+					  <%= text_field_tag "user[email]", "", placeholder: "Ex: email@gmail.com", :class=> "form-control" %>
+					</div>
+					<div class="form-group">
+						<%= label_tag "Contraseña", nil, :class=>"fsr-only" %></p>
+					  <%= password_field_tag  "user[password]",  "", placeholder: "********" ,:class=> "form-control"%>
+					</div>
+					<div class="checkbox">
+            <label>
+              <input type="checkbox"> Recuerdame
+            </label>
+          </div>
+					<%= submit_tag "Inicicar", :class => "btn btn-info" %>
+				<%end%>
+	    </div>
+	  </div>
+  </div>
+</div>

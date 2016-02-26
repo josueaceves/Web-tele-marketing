@@ -15,31 +15,83 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
-body {
-  background: url('body-img.png');
+ .panel-info > .panel-heading {
+    color: white !important ;
+    background-color: #222 !important;
+    border-color: white !important;
 }
 
+  .contact-form input {
+    margin-bottom: .5em;
+  }
+  .contact-new-input-name {
+    margin-right: 1em;
+  }
+
+  .contact-form {
+    margin-left: 2em;
+  }
+
+  .contact-new-button {
+    margin-left: 6em;
+    margin-top: 1em;
+  }
+
+  .display-inline {
+    display: inline-block;
+  }
+  .pull-center {
+    margin:auto !important;
+  }
+  .pull-right {
+    float: right !important;
+  }
+
+  .inline {
+    display:inline;
+  }
+  .btn-primary.btn-lg {
+   color: #fff;
+   background-color: #D13F31;
+   border-color: #D13F31;
+
+  }
+
+  .btn-primary.btn-lg:hover  {
+   color: #fff;
+   background-color: #222222;
+   border-color: #222222;
+  }
+
+  .number-input {
+   margin-left: 1em;
+  }
+  .panel-title {
+    font-size: 30px;
+  }
+
+  body {
+    background: url('body-img.png');
+  }
+
+  .login-div {
+    background: rgba(245, 245, 245, 0.4);
+    margin-left: 20em;
+    margin-top: 2em;
+    margin-bottom: 10em;
+  }
 
 
-.call-form {
-  background-color: red;
-  margin: 0 auto;
-}
-/*.navbar-inverse {
-    background-color: #908D88;
-    color:#ffffff;
-    border: thin solid #908D88;
-    border-radius:0;
+  .panel-title {
+  text-align: center;
+  }
 
-}
+  .btn-info {
+    color: #fff;
+    background-color: #222222;
+    border-color: #222222;
+  }
 
-.navbar-custom .navbar-nav > li > a {
-    color:white;
-}
-.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
-    color: #ffffff;
-    background-color:transparent;
-}
-.navbar-custom .navbar-brand {
-    color:#eeeeee;
-}*/
+  .landing-body {
+    height: auto;
+  }

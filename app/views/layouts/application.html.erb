@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>WebTeleMarketing</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<header>
-	<div class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">Web Marketer</a>
-			</div>
-			<div>
-				<ul class="nav navbar-nav">
-					<li class="active"> <a href="/">Home</a></li>
-					<%if current_user%>
-						<li><%=  link_to "Log out",sessions_path, method: "delete"%></li>
-						<li><%=  link_to "About", root_path, method: "get"%></li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%=current_user.first_name%> <span class='caret'></spam></a>
-							<ul class="dropdown-menu">
-								<li> <a href="/">Phone Contacts</a></li>
-								<li> <a href="/">My Number</a></li>
-								<li> <a href="/">My clients</a></li>
-							</ul>
-						</li>
-						<%else%>
-						<li><%=link_to "Register", new_user_path %></li>
-						<li><%=  link_to "About", root_path, method: "get"%></li>
-						<li><%=  link_to "Contact us", root_path, method: "get"%></li>
-					<% end%>
-				</ul>
-			</div>
-		</div>
-	</div>
-</header>
-<div class="container">
-	<%= yield %>
-</div>
-
-</body>
+  <head>
+    <title>WebTeleMarketing</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+    	<div class="navbar navbar-inverse" role="navigation">
+    		<div class="container">
+    			<div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Navigation</span>
+            <span class="icon-bar">1</span>
+            <span class="icon-bar">2</span>
+            <span class="icon-bar">3</span>
+          </button>
+    				<a class="navbar-brand" href="/">Web-TeleMarketer</a>
+    			</div>
+    			<div>
+    				<ul class="nav navbar-nav navbar-right">
+    					<li class="active"> <a href="/">Home</a></li>
+    					<%if current_user%>
+                <li><%=  link_to "Acerca", root_path%></li>
+    						<li class="dropdown">
+    							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%=current_user.first_name%> <span></spam></a>
+    							<ul class="dropdown-menu">
+    								<li> <a href="/">Contactos</a></li>
+    								<li> <a href="/">Mis Clientes</a></li>
+                    <li><%=  link_to "<small><span class='glyphicon glyphicon-off'></span></small> salir".html_safe,sessions_path, method: "delete"%></li>
+    							</ul>
+    						</li>
+    						<%else%>
+                <li><%=  link_to "Igresar", sessions_new_path%></li>
+    						<li><%=link_to "Registrar", new_user_path %></li>
+    						<li><%=  link_to "Acerca", root_path, method: "get"%></li>
+    						<li><%=  link_to "Contactanos", root_path, method: "get"%></li>
+    					<% end%>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+    </header>
+    <div class="container">
+    	<%= yield %>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+      <div class="container">
+        <div class="navbar-text pull-center">
+          <p>
+            @ 2016  Web-TeleMarketer
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

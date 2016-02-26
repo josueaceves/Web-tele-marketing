@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'contacts/new'
+
+  get 'contacts/create'
+
+  get 'contacts/delete'
+
+  get 'contacts/update'
+
   #root_path  route
   root 'landings#index'
 
