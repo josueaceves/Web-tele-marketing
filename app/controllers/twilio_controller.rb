@@ -1,5 +1,5 @@
 class TwilioController < ApplicationController
-
+    respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
@@ -21,8 +21,9 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
+      r.Play "http://demo.twilio.com/hellomonkey/monkey.mp3"
       r.Gather numDigits: '1', action: menu_path do |g|
-        g.Say 'Enter one or two', :voice => 'alice', loop: 2
+        g.Say 'Si le intereza saver mas  porfavor oprima el numero 1. Si le intereza hablar con un representante acerca de ello, oprima en numero 2. Si desea no ser molestado oprima el numero 3', voice: 'alice', language:'es-MX', loop: 2
       end
     end
     # render text: response.text
@@ -73,13 +74,33 @@ class TwilioController < ApplicationController
 
 
 	def verify_number
-    @phone = params[:phone_to_verify]
+    @phone = current_user.number
 		@client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-		caller_id = @client.account.outgoing_caller_ids.create(:friendly_name => "My Home Phone Number",
+		@caller_id = @client.account.outgoing_caller_ids.create(:friendly_name => "#{current_user.first_name} #{current_user.email}",
     :phone_number => "+1" + @phone)
-    puts caller_id.validation_code
-		puts caller_id.verification_status
-    render :nothing => true, :status => 200, :content_type => 'text/html'
+    @user.call_sid = @caller_id.call_sid
+    @user.save
+
+    @caller_id.verification_status
+
+    if request.xhr?
+      render :json => {:code => @caller_id.validation_code}
+    end
 	end
+
+  def check_verification
+    @phone = current_user.number
+    @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
+    @caller_id = @client.account.outgoing_caller_ids.get(current_user.caller_sid)
+    if @caller_id.verification_status == "success"
+      user = current_user
+      user.verified = true
+      user.save
+    end
+
+    if request.xhr?
+     render :json => {:response => @caller_id.verification_status}
+    end
+  end
 
 end

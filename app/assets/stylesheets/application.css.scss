@@ -15,6 +15,9 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+ .center-text {
+   text-align: center;
+ }
  .panel-info > .panel-heading {
     color: white !important ;
     background-color: #222 !important;
@@ -52,15 +55,17 @@
   }
   .btn-primary.btn-lg {
    color: #fff;
-   background-color: #D13F31;
-   border-color: #D13F31;
+  //  background-color: #D13F31;
+  //  border-color: #D13F31;
+   background-color: #F0AD4E;
+   border-color: #F0AD4E;
 
   }
 
   .btn-primary.btn-lg:hover  {
    color: #fff;
-   background-color: #222222;
-   border-color: #222222;
+   background-color: #eb9316;
+   border-color: #eb9316;
   }
 
   .number-input {
@@ -79,17 +84,17 @@
     margin-left: 20em;
     margin-top: 2em;
     margin-bottom: 10em;
+    border-radius: 3px;
   }
 
 
   .panel-title {
   text-align: center;
+  color:white;
   }
 
-  .btn-info {
-    color: #fff;
-    background-color: #222222;
-    border-color: #222222;
+  .btn-new-contacts {
+    margin-left: 11.5em;
   }
 
   .landing-body {
