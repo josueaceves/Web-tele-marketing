@@ -21,7 +21,7 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Play "http://demo.twilio.com/hellomonkey/monkey.mp3"
+      r.Play "http://demo.twilio.com/hellomonkey/monkey.mp3",
       r.Gather numDigits: '1', action: menu_path do |g|
         g.Say 'Si le intereza saver mas  porfavor oprima el numero 1. Si le intereza hablar con un representante acerca de ello, oprima en numero 2. Si desea no ser molestado oprima el numero 3', voice: 'alice', language:'es-MX', loop: 2
       end
