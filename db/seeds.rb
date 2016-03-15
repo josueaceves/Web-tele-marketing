@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+@user = User.create(first_name: "Josue", last_name: "Aceves", number: "8052609738", email: "josueaceves.ja@gmail.com", password: "password")
+
+10.times do
+  @contact_list = @user.contact_lists.create()
+  10.times do
+    @contact_list.contacts.create(name: Faker::Name.name, phone: Faker::PhoneNumber.cell_phone)
+  end
+end

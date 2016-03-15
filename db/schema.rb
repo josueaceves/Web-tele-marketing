@@ -16,17 +16,25 @@ ActiveRecord::Schema.define(version: 20160208163122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contacts", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "phone"
+  create_table "contact_lists", force: :cascade do |t|
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.integer  "contact_list_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
+    t.string   "call_sid"
     t.string   "password_digest"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false

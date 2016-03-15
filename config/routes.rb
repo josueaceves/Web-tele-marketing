@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   # Twilio routes
   post '/calls' => 'twilio#call'
 
-  post '/verify_number' => 'twilio#verify_number'
+  post '/users/:user_id/verify_number' => 'twilio#verify_number', as: 'verify_number'
+
+  post '/check_verification' => 'twilio#verification_status', as: 'verification_status'
 
 
 
