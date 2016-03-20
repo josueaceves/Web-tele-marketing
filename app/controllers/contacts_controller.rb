@@ -9,7 +9,8 @@ class ContactsController < ApplicationController
       @contact_list.contacts.create(contact)
     end
     session[:last_contact_list_id] = @contact_list.id
-    redirect_to root_path
+
+    redirect_to twilio_calls_path(current_user.id, @contact_list.id)
   end
 
   def delete

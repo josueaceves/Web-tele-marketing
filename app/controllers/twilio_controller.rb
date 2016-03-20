@@ -4,19 +4,19 @@ class TwilioController < ApplicationController
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-  	@phone = params[:phone]
-  	@name = params[:name]
+  	p @contacts = ContactList.find(id: params[:contact_list_id])
 	  # set up a client to talk to the Twilio REST API
-	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
+	  # @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
 
-	  @call = @client.account.calls.create(
-	    :from => '+18056234397',   # From your Twilio number
-	    :to => '+1' + @phone ,     # To any number
-	    # Fetch instructions from this URL when the call connects
-      :url => root_url+"connect"
-    )
-
-	  render :nothing => true, :status => 200, :content_type => 'text/html'
+    @contacts.each do |contact|
+      p contact.phone
+  	  # @call = @client.account.calls.create(
+  	  #   :from => '+18056234397',   # From your Twilio number
+  	  #   :to => '+1' + contact.phone ,     # To any number
+  	  #   # Fetch instructions from this URL when the call connects
+      #   :url => root_url+"connect"
+      # )
+    end
 	end
 
   def connect

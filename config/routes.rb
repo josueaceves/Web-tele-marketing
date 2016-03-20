@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   delete '/sessions' => 'sessions#delete'
 
   # Twilio routes
-  post '/calls' => 'twilio#call'
+  # post '/calls' => 'twilio#call'
+  get '/users/:user_id/contact_lists/:contact_list_id/calls' => 'twilio#call', as: 'twilio_calls'
 
   post '/users/:user_id/verify_number' => 'twilio#verify_number', as: 'verify_number'
 
