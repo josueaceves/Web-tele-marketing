@@ -27,7 +27,7 @@ class TwilioController < ApplicationController
       end
     end
     # render text: response.text
-    # render :xml => response.to_xml
+    render :xml => response.to_xml
   end
 
   def menu_selection
@@ -44,7 +44,7 @@ class TwilioController < ApplicationController
       @output = "Asta luego..."
       twiml_say(@output)
     end
-    # render text: @call
+    render text: @call
   end
 
   def twiml_say(phrase, exit = false)
