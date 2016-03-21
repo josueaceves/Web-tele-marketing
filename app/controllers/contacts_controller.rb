@@ -5,11 +5,11 @@ class ContactsController < ApplicationController
   def create
     @contact_list = current_user.contact_lists.create()
     @contacts = merge_params(contacts_number_params, contacts_name_params)
+    filter_empty_contacts(@contacts)
     @contacts.each do |contact|
       @contact_list.contacts.create(contact)
     end
     session[:last_contact_list_id] = @contact_list.id
-
     redirect_to twilio_calls_path(current_user.id, @contact_list.id)
   end
 
@@ -36,4 +36,11 @@ class ContactsController < ApplicationController
     return array_of_contacts
   end
 
+  def filter_empty_contacts(contacts)
+    contacts.each do |contact|
+      if contact[:phone] == ""
+        contacts.delete(contact)
+      end
+    end
+  end
 end
