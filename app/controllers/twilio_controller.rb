@@ -13,14 +13,14 @@ class TwilioController < ApplicationController
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => root_url + connect_path(@call.sid)
+        :url => root_url + connect_path
       )
     end
     redirect_to root_path
 	end
 
   def connect
-    @call_sid = params[:sid]
+    # @call_sid = params[:sid]
     response = Twilio::TwiML::Response.new do |r|
       r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Gather numDigits: '1', action: menu_path(@call_sid) do |g|
@@ -35,11 +35,8 @@ class TwilioController < ApplicationController
     user_selection = params[:Digits]
     number = params[:Called]
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-
-    puts "sid"
-    p sid = params[:sid]
     puts "Call Sid"
-    p call_sid = params[:CallSid]
+    p sid = params[:CallSid]
     puts "client lists below"
     p @client.notifications.list(call: sid)
     p @client.recordings.list(call: sid)
