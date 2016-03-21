@@ -7,11 +7,6 @@ class ContactsController < ApplicationController
     @contact_list = @user.contact_lists.create()
     @contacts = merge_params(contacts_number_params, contacts_name_params)
     filter_empty_contacts(@contacts)
-    puts "test to see if this appears on heroku logs"
-    test = @contact_list.contacts.create(name: "test name", phone: "test #1234")
-    p test
-    p @contact_list
-    p @contacts
     @contacts.each do |contact|
       @contact_list.contacts.create(contact)
     end
