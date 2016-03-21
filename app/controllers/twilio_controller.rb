@@ -20,10 +20,10 @@ class TwilioController < ApplicationController
 	end
 
   def connect
-    # @call_sid = params[:sid]
+    @call_sid = params[:callSid]
     response = Twilio::TwiML::Response.new do |r|
       r.Play 'https://clyp.it/l1qz52x5.mp3'
-      r.Gather numDigits: '1', action: menu_path(@call_sid) do |g|
+      r.Gather numDigits: '1', action: menu_path do |g|
         g.Play 'https://a.clyp.it/2mue3ocn.mp3'
       end
     end
