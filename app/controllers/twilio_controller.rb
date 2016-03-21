@@ -38,13 +38,12 @@ class TwilioController < ApplicationController
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output)
     when "2"
-      # twiml_dial(phone_number)
-
-      render text: @call
+      twiml_dial("8057207173")
     else
       @output = "Asta luego..."
       twiml_say(@output)
     end
+    render text: @call
   end
 
   def twiml_say(phrase, exit = false)
