@@ -13,7 +13,7 @@ class TwilioController < ApplicationController
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => twilio_connect_path
+        :url => twilio_connect_path(current_user.id)
       )
     end
     redirect_to root_path
@@ -39,7 +39,7 @@ class TwilioController < ApplicationController
       twiml_say(@output)
     when "2"
       # twiml_dial(phone_number)
-      
+
       render text: @call
     else
       @output = "Asta luego..."
