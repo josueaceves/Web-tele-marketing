@@ -30,12 +30,12 @@ Rails.application.routes.draw do
 
 
 
-  post 'connect' => 'twilio#connect'
+  post 'connect/:sid' => 'twilio#connect', as: 'connect'
 
   match 'ivr/welcome' => 'twilio#ivr_welcome', via: [:get, :post], as: 'welcome'
 
   # callback for user entry
-  match 'ivr/selection' => 'twilio#menu_selection', via: [:get, :post], as: 'menu'
+  match 'ivr/selection/:sid' => 'twilio#menu_selection', via: [:get, :post], as: 'menu'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
