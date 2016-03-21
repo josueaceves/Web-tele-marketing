@@ -3,15 +3,17 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact_list = current_user.contact_lists.create()
+    @user = User.find_by(id: current_user.id)
+    @contact_list = @user.contact_lists.create()
     @contacts = merge_params(contacts_number_params, contacts_name_params)
     filter_empty_contacts(@contacts)
     puts "test to see if this appears on heroku logs"
+    test = @contact_list.contacts.create(name: "test name", phone: "test #1234")
+    p test
     p @contact_list
     p @contacts
     @contacts.each do |contact|
-      # @contact_list.contacts.create(contact)
-      Contact.create({contact_list_id: @contact_list.id }.merge(contact))
+      @contact_list.contacts.create(contact)
     end
     session[:last_contact_list_id] = @contact_list.id
     redirect_to twilio_calls_path(current_user.id, @contact_list.id)
