@@ -27,7 +27,7 @@ class TwilioController < ApplicationController
       end
     end
     # render text: response.text
-    render :xml => response.to_xml
+    # render :xml => response.to_xml
   end
 
   def menu_selection
@@ -38,12 +38,13 @@ class TwilioController < ApplicationController
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output)
     when "2"
+      p @call
       twiml_dial("+18057207173")
     else
       @output = "Asta luego..."
       twiml_say(@output)
     end
-    render text: @call
+    # render text: @call
   end
 
   def twiml_say(phrase, exit = false)
