@@ -32,12 +32,14 @@ class TwilioController < ApplicationController
 
   def menu_selection
     user_selection = params[:Digits]
+    number = params[:Called]
 
     case user_selection
     when "1"
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output)
     when "2"
+      p @call
       twiml_dial("+18052609071")
     else
       @output = "Asta luego..."
