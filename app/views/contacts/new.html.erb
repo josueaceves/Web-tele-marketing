@@ -3,16 +3,12 @@
 		<div class="panel-heading clearfix">
 			<h3 class="panel-title">Contactos</h3>
 
-        <form class="" action="/calls" method="post">
+        <!-- <form class="" action="/calls" method="post">
           <label for="phone">Phone</label>
           <input type="text" name="phone" value="">
-        </form>
-
-
-
-			<!-- <form class="contact-form" role="form" action="/" method="POST"> -->
-      <!-- <%= form_tag user_contacts_path(current_user.id), :method => "Post", :class => "contact-form", :role => "form" do |f| %>
-				<div class="form-group form-inline">
+        </form> -->
+      <%= form_tag user_contacts_path(current_user.id), :method => "Post", :class => "contact-form", :role => "form" do |f| %>
+			  <div class="form-group form-inline">
           <input class="form-control col-sm-2 contact-new-input-name" type="text" name="name[one]" placeholder="Nombre De Contacto">
           <input class="form-control col-sm-2" type="text" name="phone[one]" placeholder="Ex: (805) 555-xxxx">
 				</div>
@@ -53,7 +49,7 @@
           <input class="form-control col-sm-2" type="text" name="phone[ten]" placeholder="Ex: (805) 555-xxxx">
 				</div>
         <%= submit_tag "Crear Nuevos Contactos", class:"btn btn-default contact-new-button" %>
-      <%end%> -->
+      <%end%>
     </div>
   </div>
 </div>

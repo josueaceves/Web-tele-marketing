@@ -4,30 +4,30 @@ class TwilioController < ApplicationController
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-  	@phone = params[:phone]
-  	@name = params[:name]
+  	@contacts = ContactList.find_by(id: params[:contact_list_id]).contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
 
-	  @call = @client.account.calls.create(
-	    :from => '+18056234397',   # From your Twilio number
-	    :to => '+1' + @phone ,     # To any number
-	    # Fetch instructions from this URL when the call connects
-      :url => root_url+"connect"
-    )
-
-	  render :nothing => true, :status => 200, :content_type => 'text/html'
+    @contacts.each do |contact|
+  	  @call = @client.account.calls.create(
+  	    :from => '+18056234397',   # From your Twilio number
+  	    :to => '+1' + contact.phone ,     # To any number
+  	    # Fetch instructions from this URL when the call connects
+        :url => twilio_connect_path
+      )
+    end
+    redirect_to root_path
 	end
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Play "http://demo.twilio.com/hellomonkey/monkey.mp3"
+      r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Gather numDigits: '1', action: menu_path do |g|
-        g.Say 'Si le intereza saver mas  porfavor oprima el numero 1. Si le intereza hablar con un representante acerca de ello, oprima en numero 2. Si desea no ser molestado oprima el numero 3', voice: 'alice', language:'es-MX', loop: 2
+        g.Play 'https://a.clyp.it/2mue3ocn.mp3'
       end
     end
     # render text: response.text
-    render :xml => twiml_response.to_xml
+    render :xml => response.to_xml
   end
 
   def menu_selection
@@ -35,14 +35,14 @@ class TwilioController < ApplicationController
 
     case user_selection
     when "1"
-      @output = "Thank you for your time Have a beautiful day"
-      twiml_say(@output, true)
+      @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
+      twiml_say(@output)
     when "2"
-      @output = "One of our representatives will call you soon"
-      twiml_say(@output, true)
-      puts "client success"
+      # twiml_dial(phone_number)
+      
+      render text: @call
     else
-      @output = "Returning to the main menu."
+      @output = "Asta luego..."
       twiml_say(@output)
     end
   end
@@ -51,13 +51,12 @@ class TwilioController < ApplicationController
     # Respond with some TwiML and say something.
     # Should we hangup or go back to the main menu?
     response = Twilio::TwiML::Response.new do |r|
-      r.Say phrase, voice: 'alice', language: 'en-GB'
+      r.Say phrase, voice: 'alice', language:'es-MX'
       if exit
-        r.Say "Thank you for calling the ET Phone Home Service - the
-        adventurous alien's first choice in intergalactic travel."
         r.Hangup
-      else
-        r.Redirect welcome_path
+      # TODO: see if you need this code below
+      # else
+      #   r.Redirect menu_path
       end
     end
 
