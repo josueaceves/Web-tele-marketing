@@ -44,7 +44,6 @@ class TwilioController < ApplicationController
       @output = "Asta luego..."
       twiml_say(@output)
     end
-    render text: @call
   end
 
   def twiml_say(phrase, exit = false)
