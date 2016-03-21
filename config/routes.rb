@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
 
 
-  get '/users/:user_id/connect' => 'twilio#connect', as: 'twilio_connect'
+  post 'connect' => 'twilio#connect'
 
   match 'ivr/welcome' => 'twilio#ivr_welcome', via: [:get, :post], as: 'welcome'
 
