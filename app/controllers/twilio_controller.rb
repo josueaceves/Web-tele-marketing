@@ -38,7 +38,7 @@ class TwilioController < ApplicationController
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output)
     when "2"
-      twiml_dial("8057207173")
+      twiml_dial("+18057207173")
     else
       @output = "Asta luego..."
       twiml_say(@output)
