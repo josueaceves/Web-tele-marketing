@@ -13,7 +13,7 @@ class TwilioController < ApplicationController
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => connect_path
+        :url => root_url + "connect"
       )
     end
     redirect_to root_path
