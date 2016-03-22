@@ -2,7 +2,7 @@ class TwilioController < ApplicationController
     respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    @@session = session[:last_contact_list_id
+    @@session = session[:last_contact_list_id]
     @@list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
 	def call
