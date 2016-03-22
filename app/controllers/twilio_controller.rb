@@ -34,27 +34,26 @@ class TwilioController < ApplicationController
     user_selection = params[:Digits]
     number = params[:Called]
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    puts "Call Sid"
-    p sid = params[:CallSid]
-    puts "client lists below"
-    p @client.notifications.list(call: sid)
-    p @client.recordings.list(call: sid)
-    p @client.transcriptions.list(call: sid)
-    puts "call below"
-    p @call = @client.calls.get(sid)
-    p @call.methods
-
+    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
     case user_selection
     when "1"
+      contact = @list.contacts.find_by(phone: number)
+      contact.response = "1"
+      contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
-      twiml_say(@output)
+      twiml_say(@output, true)
     when "2"
-      p @call
+      contact = @list.contacts.find_by(phone: number)
+      contact.response = "2"
+      contact.save
       twiml_dial("+18052609071")
-    else
+    when "3"
+      contact = @list.contacts.find_by(phone: number)
+      contact.response = "3"
+      contact.save
       @output = "Asta luego..."
-      twiml_say(@output)
+      twiml_say(@output, true)
     end
   end
 
@@ -63,12 +62,12 @@ class TwilioController < ApplicationController
     # Should we hangup or go back to the main menu?
     response = Twilio::TwiML::Response.new do |r|
       r.Say phrase, voice: 'alice', language:'es-MX'
-      if exit
-        r.Hangup
-      # TODO: see if you need this code below
+      r.Hangup
+      # if exit
+      #   r.Hangup
       # else
       #   r.Redirect menu_path
-      end
+      # end
     end
 
     render text: response.text
