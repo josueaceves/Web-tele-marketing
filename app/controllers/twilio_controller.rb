@@ -2,9 +2,9 @@ class TwilioController < ApplicationController
     respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @@list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
 	def call
-    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
     puts "list below in #call"
     p @list
   	@contacts = @list.contacts
@@ -21,7 +21,9 @@ class TwilioController < ApplicationController
 
       puts "@call.sid below"
       p sid = @call.sid
-      contact = @list.contacts.find_by(phone: contact.phone)
+      contact = @@list.contacts.find_by(phone: contact.phone)
+      puts "contact right below"
+      p contact
       contact.sid = sid
       contact.save
     end
@@ -46,23 +48,22 @@ class TwilioController < ApplicationController
     puts "params[:CallSid] below"
     p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    @list = User.find_by(id: session[:user_id]).contact_lists.find_by(id: session[:last_contact_list_id])
     puts "list below"
-    p @list
+    p @@list
     case user_selection
     when "1"
-      contact = @list.contacts.find_by(phone: number)
+      contact = @@list.contacts.find_by(phone: number)
       contact.response = "1"
       contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output, true)
     when "2"
-      contact = @list.contacts.find_by(phone: number)
+      contact = @@list.contacts.find_by(phone: number)
       contact.response = "2"
       contact.save
       twiml_dial("+18052609071")
     when "3"
-      contact = @list.contacts.find_by(phone: number)
+      contact = @@list.contacts.find_by(phone: number)
       contact.response = "3"
       contact.save
       @output = "Asta luego..."
