@@ -45,7 +45,8 @@ class TwilioController < ApplicationController
     p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @list = ContactList.find_by(id: session[:last_contact_list_id])
-
+    puts "list below"
+    p @list
     case user_selection
     when "1"
       contact = @list.contacts.find_by(phone: number)
