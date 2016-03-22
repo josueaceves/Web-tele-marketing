@@ -2,12 +2,11 @@ class TwilioController < ApplicationController
     respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    @@session = session[:last_contact_list_id]
-    @@list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
 	def call
+    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
     puts "list below in #call"
-    p @@list
+    p @list
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
@@ -21,7 +20,7 @@ class TwilioController < ApplicationController
       )
 
       sid = @call.sid
-      contact_in_list = @@list.contacts.find_by(phone: contact.phone)
+      contact_in_list = @list.contacts.find_by(phone: contact.phone)
       contact_in_list.sid = sid
       contact_in_list.save
     end
@@ -40,26 +39,27 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
+    list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
     user_selection = params[:Digits]
     call_sid = params[:CallSid]
     number = params[:Called]
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     puts "list below"
-    p @@list
+    p list
     case user_selection
     when "1"
-      contact = @@list.contacts.find_by(phone: number)
+      contact = list.contacts.find_by(phone: number)
       contact.response = "1"
       contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output, true)
     when "2"
-      contact = @@list.contacts.find_by(phone: number)
+      contact = list.contacts.find_by(phone: number)
       contact.response = "2"
       contact.save
       twiml_dial("+18052609071")
     when "3"
-      contact = @@list.contacts.find_by(phone: number)
+      contact = list.contacts.find_by(phone: number)
       contact.response = "3"
       contact.save
       @output = "Asta luego..."
