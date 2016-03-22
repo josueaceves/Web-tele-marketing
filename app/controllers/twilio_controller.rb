@@ -7,6 +7,7 @@ class TwilioController < ApplicationController
   	@contacts = ContactList.find_by(id: params[:contact_list_id]).contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
+    @list = ContactList.find_by(id: session[:last_contact_list_id)
 
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
