@@ -21,7 +21,7 @@ class TwilioController < ApplicationController
       contact_in_list.sid = sid
       contact_in_list.save
     end
-    redirect_to root_path
+    # redirect_to root_path
 	end
 
   def connect
@@ -30,7 +30,7 @@ class TwilioController < ApplicationController
       r.Say 'this is a test'
       r.Gather numDigits: '1', action: menu_path do |g|
         # g.Play 'https://a.clyp.it/2mue3ocn.mp3'
-        g.Play 'enter a number'
+        g.Say 'enter a number'
       end
     end
     # render text: response.text
@@ -43,8 +43,6 @@ class TwilioController < ApplicationController
     call_sid = params[:CallSid]
     number = params[:Called]
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    puts "list below"
-    p list
     case user_selection
     when "1"
       contact = list.contacts.find_by(phone: number)
