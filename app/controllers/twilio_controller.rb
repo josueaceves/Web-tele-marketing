@@ -4,7 +4,7 @@ class TwilioController < ApplicationController
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-    @list = ContactList.find_by(id: session[:last_contact_list_id])
+    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
@@ -44,7 +44,8 @@ class TwilioController < ApplicationController
     puts "params[:CallSid] below"
     p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    @list = ContactList.find_by(id: session[:last_contact_list_id])
+    # @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
+    @list = current_user.contact_lists.last
     puts "list below"
     p @list
     case user_selection
