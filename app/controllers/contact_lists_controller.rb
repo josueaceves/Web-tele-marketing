@@ -1,4 +1,5 @@
 class ContactListsController < ApplicationController
+  before_filter :logged_in?
 
   def index
     @account_sid = ENV['TWILIO_ACCOUNT_SID']
@@ -44,4 +45,12 @@ class ContactListsController < ApplicationController
       end
     end
   end
+
+
+
+	def logged_in?
+		if session[:user_id] == nil
+			redirect_to root_path
+		end
+	end
 end

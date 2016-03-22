@@ -1,4 +1,6 @@
 
+<%= session[:last_contact_list_id]%>
+<%= current_user.contact_lists.find_by(id: session[:last_contact_list_id])%>
 <div class="panel-group" id="accordion">
   <%@calls.each do |call|%>
     <div class="panel panel-default">

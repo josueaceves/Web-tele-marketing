@@ -4,10 +4,10 @@ class TwilioController < ApplicationController
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-  	@contacts = ContactList.find_by(id: params[:contact_list_id]).contacts
+    @list = ContactList.find_by(id: session[:last_contact_list_id])
+  	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    @list = ContactList.find_by(id: session[:last_contact_list_id])
 
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
@@ -41,10 +41,10 @@ class TwilioController < ApplicationController
     user_selection = params[:Digits]
     call_sid = params[:CallSid]
     number = params[:Called]
-    puts "params[:CallSid]"
+    puts "params[:CallSid] below"
     p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
+    @list = ContactList.find_by(id: session[:last_contact_list_id])
 
     case user_selection
     when "1"
@@ -66,6 +66,7 @@ class TwilioController < ApplicationController
       twiml_say(@output, true)
     end
   end
+
 
   def twiml_say(phrase, exit = false)
     # Respond with some TwiML and say something.
