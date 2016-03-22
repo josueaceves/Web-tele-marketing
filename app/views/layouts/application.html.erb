@@ -37,7 +37,7 @@
                 <li><%=  link_to "Igresar", sessions_new_path%></li>
     						<li><%=link_to "Registrar", new_user_path %></li>
     						<li><%=  link_to "Acerca", root_path, method: "get"%></li>
-    						<li><%=  link_to "Contactanos", root_path, method: "get"%></li>
+    						<li><%=  link_to "Contactanos",  user_contact_list_index_path(current_user.id)%></li>
     					<% end%>
     				</ul>
     			</div>

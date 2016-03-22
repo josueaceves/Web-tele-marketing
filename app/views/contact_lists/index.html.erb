@@ -1,0 +1,12 @@
+<%@calls.each do |call|%>
+  <div style="background-color: white;">
+
+  <p>
+    llamade de: <%=call.to%>
+    a: <%=call.from%><br>
+    Duracion: <%=call.duration%><br>
+    hora de comienzo: <%=call.start_time%><br>
+    hora de terminacion: <%=call.end_time%><br>
+  </p>
+</div>
+<%end%>
