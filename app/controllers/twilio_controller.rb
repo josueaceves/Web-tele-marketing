@@ -2,7 +2,8 @@ class TwilioController < ApplicationController
     respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    @@list = User.find_by(id: session[:user_id]).contact_lists.find_by(id: session[:last_contact_list_id])
+    @@session = session[:last_contact_list_id
+    @@list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
 	def call
     puts "list below in #call"
@@ -19,13 +20,10 @@ class TwilioController < ApplicationController
         :url => root_url + "connect"
       )
 
-      puts "@call.sid below"
-      p sid = @call.sid
-      contact = @@list.contacts.find_by(phone: contact.phone)
-      puts "contact right below"
-      p contact
-      contact.sid = sid
-      contact.save
+      sid = @call.sid
+      contact_in_list = @@list.contacts.find_by(phone: contact.phone)
+      contact_in_list.sid = sid
+      contact_in_list.save
     end
     redirect_to root_path
 	end
@@ -45,8 +43,6 @@ class TwilioController < ApplicationController
     user_selection = params[:Digits]
     call_sid = params[:CallSid]
     number = params[:Called]
-    puts "params[:CallSid] below"
-    p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     puts "list below"
     p @@list
