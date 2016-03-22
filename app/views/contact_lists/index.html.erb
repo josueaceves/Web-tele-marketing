@@ -1,12 +1,23 @@
-<%@calls.each do |call|%>
-  <div style="background-color: white;">
 
-  <p>
-    llamade de: <%=call.to%>
-    a: <%=call.from%><br>
-    Duracion: <%=call.duration%><br>
-    hora de comienzo: <%=call.start_time%><br>
-    hora de terminacion: <%=call.end_time%><br>
-  </p>
+<div class="panel-group" id="accordion">
+  <%@calls.each do |call|%>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=@index%>">
+          <%=call.start_time%></a></a>
+        </h4>
+      </div>
+      <div id="collapse<%=@index%>" class="panel-collapse collapse">
+        <div class="panel-body">
+          llamade de: <%=call.to%>
+          a: <%=call.from%><br>
+          Duracion: <%=call.duration%><br>
+          hora de comienzo: <%=call.start_time%><br>
+          hora de terminacion: <%=call.end_time%><br>
+        </div>
+      </div>
+    </div>
+    <%@index += 1%>
+  <%end%>
 </div>
-<%end%>

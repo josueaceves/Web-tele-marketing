@@ -5,6 +5,7 @@ class ContactListsController < ApplicationController
     @auth_token = ENV['TWILIO_AUTH_TOKEN']
     @client = Twilio::REST::Client.new(@account_sid, @auth_token)
     @calls = @client.calls.list()
+    @index = 1
   end
 
   def create

@@ -15,6 +15,12 @@ class TwilioController < ApplicationController
   	    # Fetch instructions from this URL when the call connects
         :url => root_url + "connect"
       )
+
+      puts "@call.sid below"
+      p sid = @call.sid
+      contact = @list.contacts.find_by(phone: contact.phone)
+      contact.sid = sid
+      contact.save
     end
     redirect_to root_path
 	end
@@ -32,7 +38,10 @@ class TwilioController < ApplicationController
 
   def menu_selection
     user_selection = params[:Digits]
+    call_sid = params[:CallSid]
     number = params[:Called]
+    puts "params[:CallSid]"
+    p call_sid
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
 
