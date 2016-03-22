@@ -1,4 +1,4 @@
 class ContactList < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :user
   has_many :contacts
 end
