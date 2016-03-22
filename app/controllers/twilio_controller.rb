@@ -5,6 +5,8 @@ class TwilioController < ApplicationController
 
 	def call
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
+    puts "list below in #call"
+    p @list
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
