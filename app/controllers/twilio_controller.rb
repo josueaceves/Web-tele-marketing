@@ -51,7 +51,7 @@ class TwilioController < ApplicationController
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     case user_selection
     when "1"
-      contact = list.contacts.find_by(phone: number)
+      contact = list.contacts.find_by(phone: number[2..-1])
       puts "contact below"
       p contact
       puts "contact above"
