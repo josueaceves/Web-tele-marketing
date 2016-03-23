@@ -39,7 +39,11 @@ class TwilioController < ApplicationController
 
   def menu_selection
     # list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
-    list = User.find(1).contact_lists.find_by(id: 42)
+    user = User.find(1)
+    list = user.contact_lists.find_by(id: 43)
+    puts "list below"
+    p list
+    puts "list above"
     user_selection = params[:Digits]
     call_sid = params[:CallSid]
     number = params[:Called]
