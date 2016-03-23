@@ -21,7 +21,7 @@ class TwilioController < ApplicationController
       contact_in_list.sid = sid
       contact_in_list.save
     end
-    # redirect_to root_path
+    redirect_to root_path
 	end
 
   def connect
