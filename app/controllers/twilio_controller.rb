@@ -13,7 +13,7 @@ class TwilioController < ApplicationController
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => root_url + "connect"
+        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
       )
 
       sid = @call.sid
@@ -28,7 +28,7 @@ class TwilioController < ApplicationController
     response = Twilio::TwiML::Response.new do |r|
       # r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Say 'this is a test'
-      r.Gather numDigits: '1', action: menu_path do |g|
+      r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
         # g.Play 'https://a.clyp.it/2mue3ocn.mp3'
         g.Say 'enter a number'
       end
@@ -38,12 +38,11 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
-    # list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
-    user = User.find(1)
-    list = user.contact_lists.find(16)
+    list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     puts "list below"
     p list
     p list.contacts
+    p params[:current_user_phone]
     puts "list above"
     user_selection = params[:Digits]
     call_sid = params[:CallSid]
@@ -65,7 +64,7 @@ class TwilioController < ApplicationController
       contact.save
       twiml_dial("+18052609071")
     when "3"
-      contact = list.contacts.find_by(phone: number)
+      contact = list.contacts.find_by(phone: number[2..-1])
       contact.response = "3"
       contact.save
       @output = "Asta luego..."
