@@ -1,5 +1,5 @@
 class TwilioController < ApplicationController
-    # respond_to :js, :html
+    respond_to :js, :html
   	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
@@ -26,11 +26,9 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      # r.Play 'https://clyp.it/l1qz52x5.mp3'
-      r.Say 'this is a test'
+      r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
-        # g.Play 'https://a.clyp.it/2mue3ocn.mp3'
-        g.Say 'enter a number'
+        g.Play 'https://a.clyp.it/2mue3ocn.mp3'
       end
     end
     # render text: response.text
@@ -39,32 +37,20 @@ class TwilioController < ApplicationController
 
   def menu_selection
     list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
-    puts "list below"
-    p list
-    p list.contacts
-    p params[:current_user_phone]
-    puts "list above"
     user_selection = params[:Digits]
-    call_sid = params[:CallSid]
     number = params[:Called]
-    @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
+    contact = list.contacts.find_by(phone: number[2..-1])
     case user_selection
     when "1"
-      contact = list.contacts.find_by(phone: number[2..-1])
       contact.response = "1"
       contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       twiml_say(@output, true)
     when "2"
-      contact = list.contacts.find_by(phone: number[2..-1])
-      puts "contact below"
-      p contact
-      puts "contact above"
       contact.response = "2"
       contact.save
       twiml_dial("+18052609071")
     when "3"
-      contact = list.contacts.find_by(phone: number[2..-1])
       contact.response = "3"
       contact.save
       @output = "Asta luego..."
