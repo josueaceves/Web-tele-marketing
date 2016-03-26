@@ -5,6 +5,7 @@
   <% list.contacts.each do |contact|%>
     <%=contact.name%><br>
     <%=contact.phone%><br>
+    <%=contact.response%><br>
     <%= @client.calls.get(contact.sid).duration %><br>
   <%end%>
 <%end%>
