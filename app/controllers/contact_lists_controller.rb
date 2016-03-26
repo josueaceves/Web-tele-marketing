@@ -5,8 +5,14 @@ class ContactListsController < ApplicationController
     @account_sid = ENV['TWILIO_ACCOUNT_SID']
     @auth_token = ENV['TWILIO_AUTH_TOKEN']
     @client = Twilio::REST::Client.new(@account_sid, @auth_token)
-    @calls = @client.calls.list()
-    @index = 1
+    @lists = current_user.contact_lists.all
+    # @lists.each do |list|
+      # list.contacts.each do |contacts|
+      #
+      # end
+    # end
+    # @call = @client.calls.get()
+    # @index = 1
   end
 
   def create
