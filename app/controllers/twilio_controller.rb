@@ -13,7 +13,8 @@ class TwilioController < ApplicationController
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
+        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}",
+        :if_machine => "Hangup"
       )
 
       sid = @call.sid
