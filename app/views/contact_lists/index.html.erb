@@ -1,11 +1,24 @@
-
-
-<%@lists.each do |list|%>
-  <h2>list time stamp:</h2> <%=list.created_at%><br>
-  <% list.contacts.each do |contact|%>
-    <%=contact.name%><br>
-    <%=contact.phone%><br>
-    <%=contact.response%><br>
-    <%= @client.calls.get(contact.sid).duration %><br>
-  <%end%>
-<%end%>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fecha de Lista</th>
+      <th>Nombre</th>
+      <th>Numero</th>
+      <th>Respuesta</th>
+      <th>Duracion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@lists.each do |list|%>
+      <% list.contacts.each do |contact|%>
+        <tr>
+          <th scope="row"><%=list.created_at.strftime("%I:%M%P  %d-%b-%y")%></th>
+            <td><%=contact.name%></td>
+            <td><%=contact.phone%></td>
+            <td><%=decode_call_response(contact.response)%></td>
+            <td><%= @client.calls.get(contact.sid).response %></td>
+        </tr>
+      <%end%>
+    <%end%>
+  </tbody>
+</table>
