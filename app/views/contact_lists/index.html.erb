@@ -16,7 +16,7 @@
             <td><%=contact.name%></td>
             <td><%=contact.phone%></td>
             <td><%=decode_call_response(contact.response)%></td>
-            <td><%= @client.calls.get(contact.sid).response %></td>
+            <td><%= @client.calls.get(contact.sid).duration %></td>
         </tr>
       <%end%>
     <%end%>
