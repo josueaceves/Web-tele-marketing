@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
-  helper_method :current_user, :decode_call_response
+  helper_method :current_user, :decode_call_response, :extend_users_number
 
 
    def current_user
@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
   def decode_call_response(response_number)
     response_hash = {"1" => "Le intereza, Favor de regresar la llamada", "2" => "Le Redirigio la llamada", "3" => "No le Intereza"}
     response_hash[response_number]
+  end
+
+  def extend_users_number(number)
+    number.split("").map{|n| n + "..."}.join("")
   end
 
 end
