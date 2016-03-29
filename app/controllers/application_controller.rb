@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def answered_by(response, status)
     hash = {"human" => "Una Persona", "machine" => "La contestadora", "" => "Nadie"}
-    if status = "no-answer"
+    if status == "no-answer"
        return "No contesto"
     else
       return hash[response]
