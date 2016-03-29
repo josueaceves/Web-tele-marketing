@@ -20,7 +20,7 @@
           <td><%=contact.phone%></td>
           <td><%= answered_by(@client.calls.get(contact.sid).answered_by)%></td>
           <td><%=decode_call_response(contact.response)%></td>
-          <td><%= seconds_to_time(@client.calls.get(contact.sid).duration)%></td>
+          <td><%= seconds_to_time(@client.calls.get(contact.sid).duration, @client.calls.get(contact.sid).status)%></td>
         </tr>
       <%end%>
     <%end%>
