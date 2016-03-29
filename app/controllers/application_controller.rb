@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
 
 
    def current_user
-    # User.find_by(id: session[:user_id])
     @current_user ||=  User.find_by_id(session[:user_id])
   end
 
@@ -18,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extend_users_number(number)
-    number.split("").map{|n| n + "......."}.join("")
+    number.split("").map{|n| n + ".......    "}.join("")
   end
 
 end
