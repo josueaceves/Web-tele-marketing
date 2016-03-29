@@ -20,9 +20,13 @@ class ApplicationController < ActionController::Base
     number.split("").map{|n| n + ".......   "}.join("")
   end
 
-  def answered_by(response)
+  def answered_by(response, status)
     hash = {"human" => "Una Persona", "machine" => "La contestadora", "" => "Nadie"}
-    hash[response]
+    if status = "no-answer"
+       return "No contesto"
+    else
+      return hash[response]
+    end
   end
 
   def seconds_to_time(seconds)
