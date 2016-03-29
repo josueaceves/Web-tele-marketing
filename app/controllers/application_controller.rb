@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
 
   def decode_call_response(response_number)
     response_hash = {"1" => "Le intereza, Favor de regresar la llamada", "2" => "Le Redirigio la llamada", "3" => "No le Intereza", "" => "colgo llamada"}
-    response_hash[response_number]
+    if response_number == nil
+      return "colgo llamada"
+    else
+      response_hash[response_number]
+    end
   end
 
   def extend_users_number(number)
