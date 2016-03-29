@@ -6,9 +6,9 @@
       <th>Fecha de Lista</th>
       <th>Nombre</th>
       <th>Numero</th>
-      <th>Respindio:</th>
+      <th>Respondio:</th>
       <th>Respuesta</th>
-      <th>Duracion</th>
+      <th>Duracion De llamada</th>
     </tr>
   </thead>
   <tbody>
@@ -18,9 +18,9 @@
           <th scope="row"><%=list.created_at.strftime("%I:%M%P  %d-%b-%y")%></th>
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
-          <td><%=@client.calls.get(contact.sid).answered_by%></td>
+          <td><%= answered_by(@client.calls.get(contact.sid).answered_by)%></td>
           <td><%=decode_call_response(contact.response)%></td>
-          <td><%= @client.calls.get(contact.sid).duration %></td>
+          <td><%= seconds_to_time(@client.calls.get(contact.sid).duration)%></td>
         </tr>
       <%end%>
     <%end%>
