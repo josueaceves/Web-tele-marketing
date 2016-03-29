@@ -28,7 +28,7 @@
     						<li class="dropdown">
     							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%=current_user.first_name%> <span></spam></a>
     							<ul class="dropdown-menu">
-    								<li> <a href="/">Contactos</a></li>
+                    <li><%=  link_to "Contactos",  user_contact_lists_path(current_user.id)%></li>
     								<li> <a href="/">Mis Clientes</a></li>
                     <li><%=  link_to "<small><span class='glyphicon glyphicon-off'></span></small> salir".html_safe,sessions_path, method: "delete"%></li>
     							</ul>
@@ -37,7 +37,7 @@
                 <li><%=  link_to "Igresar", sessions_new_path%></li>
     						<li><%=link_to "Registrar", new_user_path %></li>
     						<li><%=  link_to "Acerca", root_path, method: "get"%></li>
-    						<li><%=  link_to "Contactanos", root_path, method: "get"%></li>
+    						<li><%=  link_to "Contactanos",  root_path %></li>
     					<% end%>
     				</ul>
     			</div>

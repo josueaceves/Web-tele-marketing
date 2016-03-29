@@ -11,8 +11,12 @@ Rails.application.routes.draw do
   #root_path  route
   root 'landings#index'
 
+  
+
   resources :users do
-    resources :contacts
+    resources :contact_lists do
+      resources :contacts
+    end
   end
 
   # sessions routes
@@ -21,7 +25,6 @@ Rails.application.routes.draw do
   delete '/sessions' => 'sessions#delete'
 
   # Twilio routes
-  # post '/calls' => 'twilio#call'
   get '/users/:user_id/contact_lists/:contact_list_id/calls' => 'twilio#call', as: 'twilio_calls'
 
   post '/users/:user_id/verify_number' => 'twilio#verify_number', as: 'verify_number'
@@ -30,7 +33,7 @@ Rails.application.routes.draw do
 
 
 
-  post '/users/:user_id/connect' => 'twilio#connect', as: 'twilio_connect'
+  post 'connect' => 'twilio#connect'
 
   match 'ivr/welcome' => 'twilio#ivr_welcome', via: [:get, :post], as: 'welcome'
 

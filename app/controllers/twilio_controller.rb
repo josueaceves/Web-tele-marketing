@@ -4,17 +4,24 @@ class TwilioController < ApplicationController
   	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-  	@contacts = ContactList.find_by(id: params[:contact_list_id]).contacts
+    @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
+  	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
-
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
   	    :from => '+18056234397',   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
-        :url => twilio_connect_path(current_user.id)
+        :if_machine => "hangup",
+        :status_callback_method => "POST",
+        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
       )
+
+      sid = @call.sid
+      contact_in_list = @list.contacts.find_by(phone: contact.phone)
+      contact_in_list.sid = sid
+      contact_in_list.save
     end
     redirect_to root_path
 	end
@@ -22,8 +29,11 @@ class TwilioController < ApplicationController
   def connect
     response = Twilio::TwiML::Response.new do |r|
       r.Play 'https://clyp.it/l1qz52x5.mp3'
-      r.Gather numDigits: '1', action: menu_path do |g|
-        g.Play 'https://a.clyp.it/2mue3ocn.mp3'
+      r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
+        g.Play 'https://a.clyp.it/m0fyt5jj.mp3'
+        g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
+        g.Play 'https://a.clyp.it/i0okeaqk.mp3'
+
       end
     end
     # render text: response.text
@@ -31,33 +41,40 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
+    list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     user_selection = params[:Digits]
-
+    number = params[:Called]
+    contact = list.contacts.find_by(phone: number[2..-1])
     case user_selection
     when "1"
+      contact.response = "1"
+      contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
-      twiml_say(@output)
+      twiml_say(@output, true)
     when "2"
-      # twiml_dial(phone_number)
-
-      render text: @call
-    else
+      contact.response = "2"
+      contact.save
+      twiml_dial("+18052609071")
+    when "3"
+      contact.response = "3"
+      contact.save
       @output = "Asta luego..."
-      twiml_say(@output)
+      twiml_say(@output, true)
     end
   end
+
 
   def twiml_say(phrase, exit = false)
     # Respond with some TwiML and say something.
     # Should we hangup or go back to the main menu?
     response = Twilio::TwiML::Response.new do |r|
       r.Say phrase, voice: 'alice', language:'es-MX'
-      if exit
-        r.Hangup
-      # TODO: see if you need this code below
+      r.Hangup
+      # if exit
+      #   r.Hangup
       # else
       #   r.Redirect menu_path
-      end
+      # end
     end
 
     render text: response.text
