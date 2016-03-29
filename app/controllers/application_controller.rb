@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extend_users_number(number)
-    number.split("").map{|n| n + ".......      "}.join("")
+    number.split("").map{|n| n + "......."}.join("")
   end
 
 end
