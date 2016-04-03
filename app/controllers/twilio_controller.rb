@@ -10,7 +10,7 @@ class TwilioController < ApplicationController
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
-  	    :from => '+18056234397',   # From your Twilio number
+  	    :from => '+1' + current_user.number ,   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
@@ -41,40 +41,36 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
+    @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     user_selection = params[:Digits]
     number = params[:Called]
+    sid = params[:CallSid]
     contact = list.contacts.find_by(phone: number[2..-1])
     case user_selection
     when "1"
       contact.response = "1"
       contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
-      twiml_say(@output, true)
+      twiml_say(@output)
     when "2"
       contact.response = "2"
       contact.save
-      twiml_dial("+18052609071")
+      twiml_dial("+1" + params[:current_user_phone])
     when "3"
       contact.response = "3"
       contact.save
-      @output = "Asta luego..."
-      twiml_say(@output, true)
+      @client.calls.get(sid).hangup()
     end
   end
 
 
-  def twiml_say(phrase, exit = false)
+  def twiml_say(phrase)
     # Respond with some TwiML and say something.
     # Should we hangup or go back to the main menu?
     response = Twilio::TwiML::Response.new do |r|
       r.Say phrase, voice: 'alice', language:'es-MX'
       r.Hangup
-      # if exit
-      #   r.Hangup
-      # else
-      #   r.Redirect menu_path
-      # end
     end
 
     render text: response.text

@@ -13,16 +13,26 @@ class ApplicationController < ActionController::Base
 
   def decode_call_response(response_number)
     response_hash = {"1" => "Le intereza, Favor de regresar la llamada", "2" => "Le Redirigio la llamada", "3" => "No le Intereza", "" => "colgo llamada"}
-    response_hash[response_number]
+    if response_number == nil
+      return "colgo llamada"
+    else
+      response_hash[response_number]
+    end
   end
 
   def extend_users_number(number)
     number.split("").map{|n| n + ".......   "}.join("")
   end
 
-  def answered_by(response)
+  def answered_by(response, status)
     hash = {"human" => "Una Persona", "machine" => "La contestadora", "" => "Nadie"}
-    hash[response]
+    if status == "no-answer"
+       return "No contesto"
+    elsif response ==  nil
+      return "No contesto"
+    else
+      return hash[response]
+    end
   end
 
   def seconds_to_time(seconds)
