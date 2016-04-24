@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def decode_call_response(response_number)
     response_hash = {"1" => "Le intereza, Favor de regresar la llamada", "2" => "Le Redirigio la llamada", "3" => "No le Intereza", "" => "colgo llamada"}
     if response_number == nil
-      return "colgo llamada"
+      return "Sin Respuesta"
     else
       response_hash[response_number]
     end
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def answered_by(response, status)
     hash = {"human" => "Una Persona", "machine" => "La contestadora", "" => "Nadie"}
     if status == "no-answer"
-       return "No contesto"
+      return "No contesto"
     elsif response ==  nil
       return "No contesto"
     else

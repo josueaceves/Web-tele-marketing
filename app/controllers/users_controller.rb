@@ -8,15 +8,16 @@ class UsersController < ApplicationController
 		@user = current_user
 	end
 
-	def create
-		@user = User.new(user_params.merge(user_number))
-		if @user.save
-			redirect_to '/'
-		else
-			@errors = @user.errors.full_messages
-			render 'new'
-		end
-	end
+	# TODO: Uncommet code below when you fix the particular account issue
+	# def create
+	# 	@user = User.new(user_params.merge(user_number))
+	# 	if @user.save
+	# 		redirect_to '/'
+	# 	else
+	# 		@errors = @user.errors.full_messages
+	# 		render 'new'
+	# 	end
+	# end
 
 
 

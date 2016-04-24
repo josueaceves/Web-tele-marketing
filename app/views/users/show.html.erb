@@ -65,10 +65,10 @@
               </div>
             </div>
              <div class="panel-footer">
-               <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-pencil"></span> Mis Contactos</a>
-               <span class="pull-right">
+               <a href="/users/<%=current_user.id%>/contact_lists" data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-pencil"></span> Mis Contactos</a>
+               <!-- <span class="pull-right">
                  <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i> Editar</a>
-               </span>
+               </span> -->
             </div>
           </div>
           <%= link_to "Iniciar Llamadas", contacts_new_path(current_user.id), :class => "btn btn-success btn-new-contacts" %>
