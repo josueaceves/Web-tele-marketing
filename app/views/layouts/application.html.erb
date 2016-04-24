@@ -24,7 +24,7 @@
     				<ul class="nav navbar-nav navbar-right">
     					<li class="active"> <a href="/">Home</a></li>
     					<%if current_user%>
-                <li><%=  link_to "Acerca", root_path%></li>
+                <!-- <li><%=  link_to "Acerca", root_path%></li> -->
     						<li class="dropdown">
     							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%=current_user.first_name%> <span></spam></a>
     							<ul class="dropdown-menu">
@@ -34,7 +34,7 @@
     							</ul>
     						</li>
     						<%else%>
-                <li><%=  link_to "Igresar", sessions_new_path%></li>
+                <!-- <li><%=  link_to "Igresar", sessions_new_path%></li> -->
     						<!-- <li><%=link_to "Registrar", new_user_path %></li> -->
     					<% end%>
     				</ul>
