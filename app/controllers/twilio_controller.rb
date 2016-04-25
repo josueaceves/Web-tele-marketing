@@ -3,11 +3,7 @@ class TwilioController < ApplicationController
 
   # TODO: reset code below when Montero subscription ends
   def define_env_credentials
-    if current_user.email == "nuvilifejose13@gmail.com" || current_user.number == "9512244201"
-      p "*******************************"
-        p "twilo controller"
-        p "this  app is running with the right env variables"
-      p "*******************************"
+    if current_user.email == "nuvilife.jose13@gmail.com" || current_user.number == "9512244201"
       @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
     	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
     elsif current_user.email == "josueaceves.ja@gmail.com"
@@ -24,7 +20,7 @@ class TwilioController < ApplicationController
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
-  	    :from => '+1' + current_user.number ,   # From your Twilio number
+  	    :from => '+1' + current_user.number,   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
@@ -45,7 +41,7 @@ class TwilioController < ApplicationController
       r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
         g.Play 'https://a.clyp.it/m0fyt5jj.mp3'
-        g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
+        # g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
         g.Play 'https://a.clyp.it/i0okeaqk.mp3'
 
       end
