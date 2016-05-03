@@ -38,12 +38,9 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Play 'https://clyp.it/l1qz52x5.mp3'
+      r.Play 'https://a.clyp.it/egzwruej.mp3'
       r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
-        g.Play 'https://a.clyp.it/m0fyt5jj.mp3'
-        g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
-        g.Play 'https://a.clyp.it/i0okeaqk.mp3'
-
+        g.Play 'https://a.clyp.it/wysrt2in.mp3'
       end
     end
     # render text: response.text
