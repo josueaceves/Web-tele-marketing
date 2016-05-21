@@ -58,7 +58,7 @@ class TwilioController < ApplicationController
     when "1"
       contact.response = "1"
       contact.save
-      @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
+      # @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
       p "debugging***********************"
       p "debugging***********************"
       p "debugging***********************"
@@ -81,7 +81,7 @@ class TwilioController < ApplicationController
       r.Hangup
     end
 
-    render text: response.text
+    # render text: response.text
   end
 
   def twiml_dial(phone_number)
