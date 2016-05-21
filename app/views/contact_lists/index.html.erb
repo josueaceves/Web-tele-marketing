@@ -18,7 +18,7 @@
           <th scope="row"><%=list.created_at.strftime("%d-%b-%y %I:%M%P")%></th>
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
-          <%if sid.blank?%>
+          <%if contact.sid.blank?%>
             <td>Deconosido</td>
             <td>Deconosido</td>
           <%else%>
