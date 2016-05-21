@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     number.split("").map{|n| n + ".......   "}.join("")
   end
 
-  def answered_by(response, status)
+  def answered(response, status)
     hash = {"human" => "Una Persona", "machine" => "La contestadora", "" => "Nadie"}
     if status == "no-answer"
       return "No contesto"
