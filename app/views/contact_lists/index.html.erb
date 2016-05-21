@@ -7,8 +7,6 @@
       <th>Nombre</th>
       <th>Numero</th>
       <th>Respondio:</th>
-      <th>blank?</th>
-      <th>nil?</th>
       <th>Respuesta</th>
       <th>Duracion De llamada</th>
     </tr>
@@ -20,11 +18,17 @@
           <th scope="row"><%=list.created_at.strftime("%d-%b-%y %I:%M%P")%></th>
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
-          <td><%= contact.sid%></td>
-          <td><%= contact.sid.blank?%></td>
-          <td><%= contact.sid.nil?%></td>
+          <%if contact.sid.nil?%>
+            <td>Desconosido</td>
+          <%else%>
+            <td><%= contact.sid%></td>
+          <%end%>
           <td><%=decode_call_response(contact.response)%></td>
-          <td><%= contact.sid%></td>
+          <%if contact.sid.nil?%>
+            <td>Desconosido</td>
+          <%else%>
+            <td><%= contact.sid%></td>
+          <%end%>
         </tr>
       <%end%>
     <%end%>
