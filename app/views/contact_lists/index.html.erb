@@ -21,7 +21,7 @@
           <%if contact.sid.nil?%>
             <td>Desconosido</td>
           <%else%>
-            <td><%=answered_by(@client.calls.get(contact.sid).answered_by,@client.calls.get(contact.sid).status)%></td>
+            <td><%=answered(@client.calls.get(contact.sid).answered_by,@client.calls.get(contact.sid).status)%></td>
           <%end%>
           <td><%=decode_call_response(contact.response)%></td>
           <%if contact.sid.nil?%>
