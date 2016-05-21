@@ -23,11 +23,11 @@
           <%else%>
             <td><%=answered(@client.calls.get(contact.sid).answered_by,@client.calls.get(contact.sid).status)%></td>
           <%end%>
-          <td><%=decode_call_response(contact.response)%></td>
+            <td><%=decode_call_response(contact.response)%></td>
           <%if contact.sid.nil?%>
             <td>Desconosido</td>
           <%else%>
-            <td><%= contact.sid%></td>
+            <td><%= seconds_to_time(@client.calls.get(contact.sid).duration)%></td>
           <%end%>
         </tr>
       <%end%>
