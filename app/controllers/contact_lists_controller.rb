@@ -21,8 +21,8 @@ class ContactListsController < ApplicationController
     	@auth_token = ENV['TWILIO_AUTH_TOKEN']
     end
 
-    @client = Twilio::REST::Client.new(@account_sid, @auth_token)
-    @lists = current_user.contact_lists
+    p @client = Twilio::REST::Client.new(@account_sid, @auth_token)
+    p @lists = current_user.contact_lists.all
   end
 
   def create
