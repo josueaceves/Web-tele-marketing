@@ -59,6 +59,11 @@ class TwilioController < ApplicationController
       contact.response = "1"
       contact.save
       @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
+      p "debugging***********************"
+      p "debugging***********************"
+      p "debugging***********************"
+      p "debugging***********************"
+      p "+1" + params[:current_user_phone]
       twiml_say(@output)
       twiml_dial("+1" + params[:current_user_phone])
     when "2"
