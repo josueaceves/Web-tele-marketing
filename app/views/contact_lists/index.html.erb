@@ -20,7 +20,7 @@
           <td><%=contact.phone%></td>
           <td><%= contact.sid%></td>
           <td><%=decode_call_response(contact.response)%></td>
-          <td><%= contact.sid%></td>
+          <td><%= contact.sid.blank?%></td>
         </tr>
       <%end%>
     <%end%>
