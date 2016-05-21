@@ -6,6 +6,7 @@
       <th>Fecha de Lista</th>
       <th>Nombre</th>
       <th>Numero</th>
+      <th>sid</th>
       <th>Respuesta</th>
     </tr>
   </thead>
@@ -16,7 +17,7 @@
           <th scope="row"><%=list.created_at.strftime("%d-%b-%y %I:%M%P")%></th>
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
-          <td><%=@client.calls.get(contact.sid).status%></td>
+          <td><%=contact.sid%></td>
           <td><%=decode_call_response(contact.response)%></td>
         </tr>
       <%end%>
