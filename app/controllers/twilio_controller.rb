@@ -3,13 +3,13 @@ class TwilioController < ApplicationController
 
   # TODO: reset code below when Montero subscription ends
   def define_env_credentials
-    if current_user.email == "nuvilife.jose13@gmail.com" || current_user.number == "9512244201"
-      @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
-    	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
-    elsif current_user.email == "josueaceves.ja@gmail.com"
+    # if current_user.email == "nuvilife.jose13@gmail.com" || current_user.number == "9512244201"
+    #   @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
+    # 	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
+    # elsif current_user.email == "josueaceves.ja@gmail.com"
     	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
     	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    end
+    # end
   end
 
 	def call
