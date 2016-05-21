@@ -4,7 +4,7 @@ class ContactListsController < ApplicationController
   def index
 
     # TODO: reset code below when Montero subscription ends
-    if current_user.email == "nuvilifejose13@gmail.com" || current_user.number == "9512244201"
+    if current_user.email == "nuvilife.jose13@gmail.com" || current_user.number == "7145913108"
       @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
     	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
 
