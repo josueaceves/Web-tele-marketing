@@ -18,14 +18,9 @@
           <th scope="row"><%=list.created_at.strftime("%d-%b-%y %I:%M%P")%></th>
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
-          <% if sid != nil || sid.blank?%>
-            <td><%= answered(@client.calls.get(contact.sid).answered_by, @client.calls.get(contact.sid).status) %></td>
-            <td><%= seconds_to_time(@client.calls.get(contact.sid).duration)%></td>
-          <%else%>
-            <td>Desconosido</td>
-            <td>Desconosido</td>
-          <%end%>
+          <td><%= contact.sid%></td>
           <td><%=decode_call_response(contact.response)%></td>
+          <td><%= contact.sid%></td>
         </tr>
       <%end%>
     <%end%>
