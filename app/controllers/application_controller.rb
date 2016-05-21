@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
-  helper_method :current_user, :decode_call_response, :extend_users_number, :answered_by, :seconds_to_time
+  helper_method :current_user, :decode_call_response, :extend_users_number, :answered, :seconds_to_time
 
 
    def current_user
