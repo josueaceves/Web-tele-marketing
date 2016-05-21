@@ -7,6 +7,8 @@
       <th>Nombre</th>
       <th>Numero</th>
       <th>Respondio:</th>
+      <th>blank?</th>
+      <th>nil?</th>
       <th>Respuesta</th>
       <th>Duracion De llamada</th>
     </tr>
@@ -19,6 +21,8 @@
           <td><%=contact.name%></td>
           <td><%=contact.phone%></td>
           <td><%= contact.sid%></td>
+          <td><%= contact.sid.blank?%></td>
+          <td><%= contact.sid.nil?%></td>
           <td><%=decode_call_response(contact.response)%></td>
           <td><%= contact.sid%></td>
         </tr>
