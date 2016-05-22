@@ -20,7 +20,7 @@ class TwilioController < ApplicationController
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
-  	    :from => '+1' + current_user.number,   # From your Twilio number
+  	    :from => '+1' + "8056234397",   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
