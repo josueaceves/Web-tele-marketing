@@ -13,7 +13,7 @@ class TwilioController < ApplicationController
   end
 
 	def call
-    define_env_credentials(user_id: params[:user_id]})
+    define_env_credentials(user_id: params[:user_id])
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
