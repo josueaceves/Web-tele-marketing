@@ -1,7 +1,7 @@
 class TwilioController < ApplicationController
     respond_to :js, :html
-    @@account_sid = ENV['TWILIO_ACCOUNT_SID']
-  	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
+    @@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
 
 	def call
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
@@ -10,7 +10,7 @@ class TwilioController < ApplicationController
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
-  	    :from => '+18056234397' ,   # From your Twilio number
+  	    :from => '+19512244201' ,   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
