@@ -1,31 +1,21 @@
 class TwilioController < ApplicationController
-  respond_to :js, :html
-
-  # TODO: reset code below when Montero subscription ends
-  def define_env_credentials(parms={})
-    if User.find(parms[:user_id]).email == "nuvilife.jose13@gmail.com" || User.find(parms[:user_id]).number == "7145913108"
-      @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
-    	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
-    elsif User.find(parms[:user_id]).email == "josueaceves.ja@gmail.com"
-    	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
-    	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    end
-  end
+    respond_to :js, :html
+  	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
+  	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
-    define_env_credentials(user_id: params[:user_id])
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
 	  @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     @contacts.each do |contact|
   	  @call = @client.account.calls.create(
-  	    :from => '+1' + current_user.number,   # From your Twilio number
+  	    :from => '+1' + current_user.number ,   # From your Twilio number
   	    :to => '+1' + contact.phone ,     # To any number
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
         :status_callback_method => "POST",
-        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{contact.phone}"
+        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
       )
 
       sid = @call.sid
@@ -38,9 +28,12 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Play 'https://a.clyp.it/egzwruej.mp3'
+      r.Play 'https://clyp.it/l1qz52x5.mp3'
       r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
-        g.Play 'https://a.clyp.it/wysrt2in.mp3'
+        g.Play 'https://a.clyp.it/m0fyt5jj.mp3'
+        g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
+        g.Play 'https://a.clyp.it/i0okeaqk.mp3'
+
       end
     end
     # render text: response.text
@@ -48,7 +41,6 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
-    define_env_credentials(user_id: params[:user_id])
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     user_selection = params[:Digits]
@@ -59,11 +51,16 @@ class TwilioController < ApplicationController
     when "1"
       contact.response = "1"
       contact.save
-      twiml_say("Uno de nuestros representatantes le contestara")
-      twiml_dial("+1" + params[:current_user_phone])
+      @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
+      twiml_say(@output)
     when "2"
       contact.response = "2"
       contact.save
+      twiml_dial("+1" + params[:current_user_phone])
+    when "3"
+      contact.response = "3"
+      contact.save
+      @client.calls.get(sid).hangup()
     end
   end
 
@@ -76,7 +73,7 @@ class TwilioController < ApplicationController
       r.Hangup
     end
 
-    # render text: response.text
+    render text: response.text
   end
 
   def twiml_dial(phone_number)
