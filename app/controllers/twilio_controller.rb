@@ -1,7 +1,7 @@
 class TwilioController < ApplicationController
     respond_to :js, :html
-    @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
-    @@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
+    @@account_sid = ENV['TWILIO_ACCOUNT_SID']
+  	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 	def call
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
