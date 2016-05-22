@@ -2,7 +2,7 @@ class TwilioController < ApplicationController
   respond_to :js, :html
 
   # TODO: reset code below when Montero subscription ends
-  def define_env_credentials
+  # def define_env_credentials
     if current_user.email == "nuvilife.jose13@gmail.com" || current_user.number == "7145913108"
       @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
     	@@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
@@ -10,10 +10,10 @@ class TwilioController < ApplicationController
     	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
     	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
     end
-  end
+  # end
 
 	def call
-    define_env_credentials
+    # define_env_credentials
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
   	@contacts = @list.contacts
 	  # set up a client to talk to the Twilio REST API
@@ -48,7 +48,7 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
-    define_env_credentials
+    # define_env_credentials
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     user_selection = params[:Digits]
