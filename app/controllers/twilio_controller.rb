@@ -48,6 +48,7 @@ class TwilioController < ApplicationController
   end
 
   def menu_selection
+    define_env_credentials
     @client = Twilio::REST::Client.new(@@account_sid, @@auth_token)
     list = User.find_by(id: params[:user_id]).contact_lists.find_by(id: params[:last_contact_list_id])
     user_selection = params[:Digits]
