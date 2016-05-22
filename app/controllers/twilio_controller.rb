@@ -1,7 +1,7 @@
 class TwilioController < ApplicationController
     respond_to :js, :html
-  	@@account_sid = ENV['TWILIO_ACCOUNT_SID']
-  	@@auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @@account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
+    @@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
 
 	def call
     @list = current_user.contact_lists.find_by(id: session[:last_contact_list_id])
@@ -28,15 +28,11 @@ class TwilioController < ApplicationController
 
   def connect
     response = Twilio::TwiML::Response.new do |r|
-      r.Play 'https://clyp.it/l1qz52x5.mp3'
+      r.Play 'https://a.clyp.it/egzwruej.mp3'
       r.Gather numDigits: '1', action: menu_path(:user_id => params[:user_id], :last_contact_list_id => params[:last_contact_list_id], :current_user_phone => params[:current_user_phone]) do |g|
-        g.Play 'https://a.clyp.it/m0fyt5jj.mp3'
-        g.Say extend_users_number(params[:current_user_phone]), voice: 'alice', language:'es-MX'
-        g.Play 'https://a.clyp.it/i0okeaqk.mp3'
-
+        g.Play 'https://a.clyp.it/wysrt2in.mp3'
       end
     end
-    # render text: response.text
     render :xml => response.to_xml
   end
 
@@ -50,11 +46,6 @@ class TwilioController < ApplicationController
     case user_selection
     when "1"
       contact.response = "1"
-      contact.save
-      @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
-      twiml_say(@output)
-    when "2"
-      contact.response = "2"
       contact.save
       twiml_dial("+1" + params[:current_user_phone])
     when "3"
