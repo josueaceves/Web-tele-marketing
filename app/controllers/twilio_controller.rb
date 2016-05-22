@@ -25,7 +25,7 @@ class TwilioController < ApplicationController
   	    # Fetch instructions from this URL when the call connects
         :if_machine => "hangup",
         :status_callback_method => "POST",
-        :url => root_url + "connect?user_id=#{session[:user_id]}&last_contact_list_id=#{session[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
+        :url => root_url + "connect?user_id=#{params[:user_id]}&last_contact_list_id=#{params[:last_contact_list_id]}&current_user_phone=#{current_user.number}"
       )
 
       sid = @call.sid
@@ -58,13 +58,7 @@ class TwilioController < ApplicationController
     when "1"
       contact.response = "1"
       contact.save
-      # @output = "Uno de nuestros representatantes se comunicara con usted en seguida."
-      # p "debugging***********************"
-      # p "debugging***********************"
-      # p "debugging***********************"
-      # p "debugging***********************"
       p "+1" + params[:current_user_phone]
-      # twiml_say(@output)
       twiml_dial("+1" + params[:current_user_phone])
     when "2"
       contact.response = "2"
