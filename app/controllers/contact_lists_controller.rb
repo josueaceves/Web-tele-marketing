@@ -3,16 +3,8 @@ class ContactListsController < ApplicationController
 
   def index
 
-    # TODO: reset code below when Montero subscription ends
-    if current_user.email == "nuvilife.jose13@gmail.com" && current_user.number == "7145913108"
-      @account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
-    	@auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
-
-    elsif current_user.email == "josueaceves.ja@gmail.com"
-      p "using josues account"
-    	@account_sid = ENV['TWILIO_ACCOUNT_SID']
-    	@auth_token = ENV['TWILIO_AUTH_TOKEN']
-    end
+    @account_sid = ENV['TWILIO_MONTERO_ACCOUNT_SID']
+    @auth_token = ENV['TWILIO_MONTERO_AUTH_TOKEN']
 
     @client = Twilio::REST::Client.new(@account_sid, @auth_token)
     @lists = current_user.contact_lists.all
