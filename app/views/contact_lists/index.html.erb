@@ -12,8 +12,8 @@
     </tr>
   </thead>
   <tbody>
-    <%@lists.reverse.each do |list|%>
-      <% list.contacts.reverse.each do |contact|%>
+    <%@lists.each do |list|%>
+      <% list.contacts.each do |contact|%>
         <tr>
           <th scope="row"><%=list.created_at.strftime("%d-%b-%y %I:%M%P")%></th>
           <td><%=contact.name%></td>
